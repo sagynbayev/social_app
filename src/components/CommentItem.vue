@@ -1,0 +1,37 @@
+<template>
+    <div class="mb-6 flex items-center justify-between">
+        <div class="flex items-center space-x-6">
+            <img src="https://vk.com/images/camera_400.gif" class="w-[40px] rounded-full">
+
+            <p>
+                <strong>
+                    <RouterLink :to="{name: 'profile', params: {'id': comment.created_by.id}}">{{
+                            comment.created_by.name
+                        }}
+                    </RouterLink>
+                </strong>
+            </p>
+        </div>
+
+        <p class="text-gray-600">{{ comment.created_at_formatted }} ago</p>
+    </div>
+
+    <p>
+        {{ comment.body }}
+    </p>
+
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+    props: {
+        comment: Object
+    },
+
+    methods: {
+    }
+}
+
+</script>
