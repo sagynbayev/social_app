@@ -6,20 +6,29 @@
 
                 <p><strong>{{ user.name }}</strong></p>
 
-                <div class="mt-6 flex space-x-8 justify-around">
-                    <RouterLink :to="{name: 'friends', params: {id: user.id}}" class="text-xs text-gray-500">{{user.friends_count}} friends</RouterLink>
-                    <p class="text-xs text-gray-500">120 posts</p>
+                <div class="mt-6 flex space-x-8 justify-around" v-if="user.id">
+                    <RouterLink :to="{name: 'friends', params: {id: user.id}}" class="text-xs text-gray-500">
+                        {{ user.friends_count }} friends
+                    </RouterLink>
+                    <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
                 </div>
 
                 <div class="mt-6">
                     <button class="inline-block py-4 px-6 bg-purple-600 text-white rounded-lg"
                             v-if="userStore.user.id !== user.id"
                             @click="sendFriendshipRequest"
-                    >Subscribe</button>
+                    >Subscribe
+                    </button>
+                    <button class="inline-block mt-4 py-4 px-6 bg-purple-600 text-white rounded-lg"
+                            v-if="userStore.user.id !== user.id"
+                            @click="sendDirectMessage"
+                    >Send Direct Message
+                    </button>
                     <button class="inline-block py-4 px-6 bg-red-600 text-white rounded-lg"
                             v-if="userStore.user.id === user.id"
                             @click="logout"
-                    >Log out</button>
+                    >Log out
+                    </button>
                 </div>
             </div>
         </div>
@@ -86,7 +95,7 @@ export default {
     },
     watch: {
         '$route.params.id': {
-            handler: function() {
+            handler: function () {
                 this.getFeed()
             },
             deep: true,
@@ -136,6 +145,20 @@ export default {
                 })
                 .catch(error => {
                     console.log("error", error)
+                })
+        },
+        sendDirectMessage() {
+            console.log("sendDirectMessage")
+
+            axios
+                .get(`/api/chat/${this.$route.params.id}/get-or-create/ `)
+                .then(response => {
+                    console.log(response.data)
+
+                    this.$router.push('/chat')
+                })
+                .catch(error => {
+                    console.log('error', error)
                 })
         },
         logout() {
