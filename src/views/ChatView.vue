@@ -9,12 +9,12 @@
                          v-on:click="setActiveConversation(conversation.id)"
                     >
                         <div class="flex items-center space-x-2">
-                            <img src="https://vk.com/images/camera_400.gif" class="w-[40px] rounded-full">
 
                             <template
                                 v-for="user in conversation.users"
                                 v-bind:key="user.id"
                             >
+                                <img :src="user.get_avatar" class="w-[40px] h-[40px] object-cover rounded-full">
                                 <p class="text-xs font-bold"
                                    v-if="user.id !== userStore.user.id"
                                 >
@@ -46,7 +46,7 @@
                                 <span class="text-xs text-gray-500 leading-none">{{ message.created_at_formatted }} min ago</span>
                             </div>
                             <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
-                                <img src="https://vk.com/images/camera_400.gif" class="w-[40px] rounded-full">
+                                <img :src="message.created_by.get_avatar" class="w-[40px] h-[40px] object-cover rounded-full">
                             </div>
                         </div>
 
@@ -54,7 +54,7 @@
                              v-else
                         >
                             <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
-                                <img src="https://vk.com/images/camera_400.gif" class="w-[40px] rounded-full">
+                                <img :src="message.created_by.get_avatar" class="w-[40px] h-[40px] object-cover rounded-full">
                             </div>
                             <div>
                                 <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
@@ -154,6 +154,7 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.activeConversation.messages.push(response.data)
+                    this.body = ''
                 })
                 .catch(error => {
                     console.log('error', error)

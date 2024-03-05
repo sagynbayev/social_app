@@ -20,11 +20,11 @@
                 class="p-4 bg-white border border-gray-200 rounded-lg grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
                 v-if="users.length"
             >
-                <div class="p-4 text-center bg-gray-100 rounded-lg"
+                <div class="p-4 text-center bg-gray-100 rounded-lg flex flex-col items-center"
                      v-for="user in users"
                      v-bind:key="user.id"
                 >
-                    <img src="https://vk.com/images/camera_400.gif" class="mb-6 rounded-full">
+                    <img :src="user.get_avatar" class="mb-6 w-[100px] h-[100px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] rounded-full object-cover">
 
                     <p>
                         <strong>

@@ -53,7 +53,6 @@ import {useUserStore} from "@/stores/user.js";
 export default {
     setup() {
         const userStore = useUserStore()
-
         return {
             userStore
         }
@@ -83,12 +82,16 @@ export default {
                     .then(response => {
                         this.userStore.setToken(response.data)
 
-                        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.access
+                        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.access;
                     })
                     .catch(error => {
                         console.log('error', error)
-                    })
 
+                        this.errors.push('The email or password is incorrect! Or the user is not activated!')
+                    })
+            }
+
+            if (this.errors.length === 0) {
                 await axios
                     .get('/api/me/')
                     .then(response => {

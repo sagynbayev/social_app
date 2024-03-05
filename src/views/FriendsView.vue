@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div class="main-left hidden lg:block col-span-1">
             <div class="p-4 bg-white border border-gray-200 text-center rounded-lg">
-                <img src="https://vk.com/images/camera_400.gif" class="mb-6 rounded-full">
+                <img :src="user.get_avatar" class="mb-6 rounded-full">
 
                 <p><strong>{{ user.name }}</strong></p>
 
@@ -25,7 +25,7 @@
                     v-for="friendshipRequest in friendshipRequests"
                     v-bind:key="friendshipRequest.id"
                 >
-                    <img src="https://vk.com/images/camera_400.gif" class="mb-6 mx-auto rounded-full">
+                    <img :src="friendshipRequest.created_by.get_avatar" class="mb-6 mx-auto rounded-full">
 
                     <p>
                         <strong>
@@ -62,7 +62,7 @@
                     v-for="user in friends"
                     v-bind:key="user.id"
                 >
-                    <img src="https://vk.com/images/camera_400.gif" class="mb-6 rounded-full">
+                    <img :src="user.get_avatar" class="mb-6 rounded-full">
 
                     <p>
                         <strong>
@@ -72,7 +72,7 @@
 
                     <div class="mt-6 flex space-x-8 justify-around">
                         <p class="text-xs text-gray-500">{{ user.friends_count }} friends</p>
-                        <p class="text-xs text-gray-500">{{ user.posts_count }}</p>
+                        <p class="text-xs text-gray-500">{{ user.posts_count }} posts</p>
                     </div>
                 </div>
             </div>
